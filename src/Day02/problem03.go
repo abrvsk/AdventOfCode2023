@@ -39,27 +39,24 @@ func calculateAmountOfCubes(str string, maxReds, maxGreens, maxBlues int) int {
 		cubes := strings.Split(draw, ", ")
 		for _, cubeDraw := range cubes {
 			if strings.Contains(cubeDraw, "red") {
-				reds := strings.Split(cubeDraw, " ")
-				redAmount, err := strconv.Atoi(reds[0])
-				if err == nil && redAmount > maxReds {
-					gameNumber = 0
-				}
+                gameNumber = checkColorDraw(cubeDraw, "red", maxReds, gameNumber)
 			}
 			if strings.Contains(cubeDraw, "green") {
-				greens := strings.Split(cubeDraw, " ")
-				greenAmount, err := strconv.Atoi(greens[0])
-				if err == nil && greenAmount > maxGreens {
-					gameNumber = 0
-				}
+                gameNumber = checkColorDraw(cubeDraw, "green", maxGreens, gameNumber)
 			}
 			if strings.Contains(cubeDraw, "blue") {
-				blues := strings.Split(cubeDraw, " ")
-				blueAmount, err := strconv.Atoi(blues[0])
-				if err == nil && blueAmount > maxBlues {
-					gameNumber = 0
-				}
+                gameNumber = checkColorDraw(cubeDraw, "blue", maxBlues, gameNumber)
 			}
 		}
+	}
+	return gameNumber
+}
+
+func checkColorDraw(cubeDraw, color string, maxAmount, gameNumber int) int {
+	cubes := strings.Split(cubeDraw, " ")
+	amount, err := strconv.Atoi(cubes[0])
+	if err == nil && amount > maxAmount {
+		return 0
 	}
 	return gameNumber
 }

@@ -33,19 +33,25 @@ func calculatePowerOfCubes(str string) int {
 	for _, draw := range draws {
 		cubes := strings.Split(draw, ", ")
 		for _, cubeDraw := range cubes {
-            minRed = checkColorDraw(cubeDraw, "red", minRed)
-            minGreen = checkColorDraw(cubeDraw, "green", minGreen)
-            minBlue = checkColorDraw(cubeDraw, "blue", minBlue)
+			if strings.Contains(cubeDraw, "red") {
+				minRed = getMinAmountByColour(cubeDraw, "red", minRed)
+			}
+			if strings.Contains(cubeDraw, "green") {
+				minGreen = getMinAmountByColour(cubeDraw, "green", minGreen)
+			}
+			if strings.Contains(cubeDraw, "blue") {
+				minBlue = getMinAmountByColour(cubeDraw, "blue", minBlue)
+			}
 		}
 	}
 	return minRed * minGreen * minBlue
 }
 
-func checkColorDraw(cubeDraw, color string, minAmount int) int {
+func getMinAmountByColour(cubeDraw, color string, minAmount int) int {
 	cubes := strings.Split(cubeDraw, " ")
 	amount, err := strconv.Atoi(cubes[0])
 	if err == nil && amount > minAmount {
 		return amount
 	}
-    return minAmount
+	return minAmount
 }
